@@ -1,0 +1,46 @@
+# server.py
+from flask import Flask, render_template, request
+import sqlalchemy as sa
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+	return render_template('index.html')
+
+@app.route('/welcome', methods=['POST'])
+def welcome():
+	name = request.form['name_form']
+	add = request.form['add_form']
+	addnum = request.form['addnum_form']
+	mail = request.form['mail_form']
+	phnum = request.form['phnum_form']
+
+	url = 'mysql+pymysql://root@localhost/test?charset=utf8'
+	engine = sa.create_engine(url, echo=True)
+
+	engine.execute('DROP TABLE IF EXISTS {}'.format("users"))
+	# テーブルを作成
+	engine.execute('''
+   		CREATE TABLE users (
+    		user_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    		name TEXT,
+		address TEXT,
+		addnum TEXT,
+		mail TEXT,
+		phnum TEXT
+    		)
+    		''')
+
+	# データを挿入。
+	# SQL文に「?」が使用できないので、代わりに「%s」を使用
+	ins = "INSERT INTO users (name, address, addnum, mail, phnum) VALUES (%s, %s, %s, %s, %s)"
+	data = [( name, add, addnum, mail, phnum )]
+	for d in data:
+	    engine.execute(ins,d)	
+
+	return render_template('welcome.html', name=name ) 
+
+if __name__ == '__main__':
+	app.debug = True
+	app.run(host='0.0.0.0', port=80)
