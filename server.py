@@ -1,45 +1,77 @@
 # server.py
 from flask import Flask, render_template, request
-import sqlalchemy as sa
+from cerberus import Validator
+import re
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+#バリデーション定義
+schema = {
+    'name': {
+        'type': 'string',
+        'required': True,
+        'empty': False,
+    },
+    'add': {
+        'type': 'string',
+        'required': True,
+        'empty': False,
+    },
+    'addnum': {
+        'type': 'string',
+        'required': True,
+        'regex': '^[0-9]{3}-[0-9]{4}$',
+    },
+    'phones': {
+        'type': 'string',
+        'required': True,
+        'regex': '^[0-9]{2,4}-[0-9]{2,4}-[0-9]{3,4}$',
+    },
+}
+
+# バリデータを作成
+v = Validator(schema)
 
 app = Flask(__name__)
+
+url = 'mysql+pymysql://root@localhost/test?charset=utf8'
+engine = create_engine(url, echo=True)
+Base = declarative_base()
 
 @app.route('/')
 def index():
 	return render_template('index.html')
 
 @app.route('/welcome', methods=['POST'])
-def welcome():
-	name = request.form['name_form']
-	add = request.form['add_form']
-	addnum = request.form['addnum_form']
-	mail = request.form['mail_form']
-	phnum = request.form['phnum_form']
-
-	url = 'mysql+pymysql://root@localhost/test?charset=utf8'
-	engine = sa.create_engine(url, echo=True)
-
-	engine.execute('DROP TABLE IF EXISTS {}'.format("users"))
+#class User():
 	# テーブルを作成
-	engine.execute('''
-   		CREATE TABLE users (
-    		user_id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    		name TEXT,
-		address TEXT,
-		addnum TEXT,
-		mail TEXT,
-		phnum TEXT
-    		)
-    		''')
+#        __tablename__ = "users"
+#        user_id = Column(Integer, primary_key=True)
+#        name = Column(String(50))
+#        address = Column(String(300))
+#        addnum = Column(String(100))
+#        mail = Column(String(100))
+#        phnum = Column(String(100))
 
-	# データを挿入。
-	# SQL文に「?」が使用できないので、代わりに「%s」を使用
-	ins = "INSERT INTO users (name, address, addnum, mail, phnum) VALUES (%s, %s, %s, %s, %s)"
-	data = [( name, add, addnum, mail, phnum )]
-	for d in data:
-	    engine.execute(ins,d)	
+def welcome():
 
-	return render_template('welcome.html', name=name ) 
+                name = request.form['name_form']
+                add = request.form['add_form']
+                addnum = request.form['addnum_form']
+                mail = request.form['mail_form']
+                phnum = request.form['phnum_form']
+
+		#バリデーション
+                v.validate(name, add, addnum, mail, phnum)
+
+		#ins = "INSERT INTO users (name, address, addnum, mail, phnum) VALUES (%s, %s, %s, %s, %s)"
+		#data = [( name, add, addnum, mail, phnum )]
+		#for d in data:
+		#    engine.execute(ins,d)	
+
+                pprint(v.errors)
+                return render_template('welcome.html', name=name ) 
 
 if __name__ == '__main__':
 	app.debug = True
