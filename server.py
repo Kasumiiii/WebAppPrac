@@ -6,6 +6,7 @@ from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+"""
 #バリデーション定義
 schema = {
     'name': {
@@ -29,7 +30,7 @@ schema = {
         'regex': '^[0-9]{2,4}-[0-9]{2,4}-[0-9]{3,4}$',
     },
 }
-
+"""
 # バリデータを作成
 v = Validator(schema)
 
@@ -44,31 +45,21 @@ def index():
 	return render_template('index.html')
 
 @app.route('/welcome', methods=['POST'])
-#class User():
-	# テーブルを作成
-#        __tablename__ = "users"
-#        user_id = Column(Integer, primary_key=True)
-#        name = Column(String(50))
-#        address = Column(String(300))
-#        addnum = Column(String(100))
-#        mail = Column(String(100))
-#        phnum = Column(String(100))
-
 def welcome():
 
                 name = request.form['name_form']
                 add = request.form['add_form']
                 addnum = request.form['addnum_form']
                 mail = request.form['mail_form']
-                phnum = request.form['phnum_form']
+                tel = request.form['tel_form']
 
 		#バリデーション
-                v.validate(name, add, addnum, mail, phnum)
+                v.validate(name, add, addnum, mail, tel)
 
-		#ins = "INSERT INTO users (name, address, addnum, mail, phnum) VALUES (%s, %s, %s, %s, %s)"
-		#data = [( name, add, addnum, mail, phnum )]
-		#for d in data:
-		#    engine.execute(ins,d)	
+		#ins = "INSERT INTO users (name, address, addnum, mail, tel) VALUES (%s, %s, %s, %s, %s)"
+                #data = [( name, add, addnum, mail, tel )]
+                #for d in data:
+                #    engine.execute(ins,d)	
 
                 pprint(v.errors)
                 return render_template('welcome.html', name=name ) 
