@@ -1,8 +1,13 @@
 #from server import Judge 
+from validator import Validator 
 
 class Webapp:
-  #print('hello_Webapp')
-  def val(self, input_list):
-    #input_list = Input().judge_data()
-    print(input_list)
+  def __init__(self, answer):
+    self._answer = answer
 
+  #print('hello_Webapp')
+  def val(self):
+    print(self._answer)
+    validator = Validator()
+    valid_data = validator.check(self._answer)
+    return valid_data

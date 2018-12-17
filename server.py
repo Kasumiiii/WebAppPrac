@@ -47,13 +47,12 @@ def index():
 
 
 class Judge:
-  @app.route('/welcome', methods=['POST'])
- # def printtest(self):
- #   print('hello')
+  def __init__(self):
+    pass
 
-#class Judge:
-  def judge_data(self):
-    print('hello judge_data') 
+  @app.route('/welcome', methods=['POST'])
+
+  def judge_data():
     input_list = [
       request.form['name_form'],
       request.form['add_form'],
@@ -61,21 +60,23 @@ class Judge:
       request.form['mail_form'],
       request.form['tel_form'],
     ]
-
-    Webapp().val(input_list)
+    
+    appcnt = Webapp(input_list)
+    valid_data = appcnt.val() 
+    #appcnt.val() 
 
 #@app.route('/welcome', methods=['POST'])
-  def welcome():
-                
-		#バリデーション
+#  def welcome(self, data):
+    print( valid_data[0] )
+                #バリデーション
                 #v.validate(name, add, addnum, mail, tel)
 
-		#ins = "INSERT INTO users (name, address, addnum, mail, tel) VALUES (%s, %s, %s, %s, %s)"
+                #ins = "INSERT INTO users (name, address, addnum, mail, tel) VALUES (%s, %s, %s, %s, %s)"
                 #data = [( name, add, addnum, mail, tel )]
                 #for d in data:
                 #    engine.execute(ins,d)	
-                name = 'hoge'
-                return render_template('welcome.html', name=name ) 
+    name = valid_data[0] 
+    return render_template('welcome.html', name=name ) 
 
 if __name__ == '__main__':
 	app.debug = True
