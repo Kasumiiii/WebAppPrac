@@ -7,33 +7,6 @@ from sqlalchemy.orm import sessionmaker
 
 from appcnt import Webapp
 
-"""
-#バリデーション定義
-schema = {
-    'name': {
-        'type': 'string',
-        'required': True,
-        'empty': False,
-    },
-    'add': {
-        'type': 'string',
-        'required': True,
-        'empty': False,
-    },
-    'addnum': {
-        'type': 'string',
-        'required': True,
-        'regex': '^[0-9]{3}-[0-9]{4}$',
-    },
-    'phones': {
-        'type': 'string',
-        'required': True,
-        'regex': '^[0-9]{2,4}-[0-9]{2,4}-[0-9]{3,4}$',
-    },
-}
-"""
-# バリデータを作成
-#v = Validator(schema)
 
 app = Flask(__name__)
 
@@ -63,7 +36,7 @@ class Judge:
     
     appcnt = Webapp(input_list)
     valid_data = appcnt.val() 
-    #appcnt.val() 
+    print(valid_data) 
 
 #@app.route('/welcome', methods=['POST'])
 #  def welcome(self, data):
