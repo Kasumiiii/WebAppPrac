@@ -5,7 +5,7 @@ class Webapp:
     self._answer = answer
 
   def val(self):
-    print(self._answer)
+    # print(self._answer)
     
     validator = Validator()
     err = validator.check(self._answer)

@@ -16,7 +16,10 @@ Base = declarative_base()
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+  return render_template('index.html')
+
+# def val_err(err_list)
+#   return render_template('index.html', err_list = err_list)
 
 
 class Judge:
@@ -24,7 +27,6 @@ class Judge:
     pass
 
   @app.route('/welcome', methods=['POST'])
-
   def judge_data():
     input_list = [
       request.form['name_form'],
@@ -36,20 +38,18 @@ class Judge:
     
     appcnt = Webapp(input_list)
     valid_data = appcnt.val() 
-    print(valid_data) 
 
 #@app.route('/welcome', methods=['POST'])
 #  def welcome(self, data):
-    print( valid_data[0] )
-                #バリデーション
-                #v.validate(name, add, addnum, mail, tel)
-
+    print( valid_data )
                 #ins = "INSERT INTO users (name, address, addnum, mail, tel) VALUES (%s, %s, %s, %s, %s)"
                 #data = [( name, add, addnum, mail, tel )]
                 #for d in data:
                 #    engine.execute(ins,d)	
-    name = valid_data[0] 
-    return render_template('welcome.html', name=name ) 
+    name = valid_data 
+    # i = 0
+    # import pdb; pdb.set_trace()
+    return render_template('welcome.html', name=name, i=0 ) 
 
 if __name__ == '__main__':
 	app.debug = True
