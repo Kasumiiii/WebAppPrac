@@ -47,9 +47,8 @@ class Judge:
                 #for d in data:
                 #    engine.execute(ins,d)	
     name = valid_data 
-    # i = 0
     # import pdb; pdb.set_trace()
-    return render_template('welcome.html', name=name, i=0 ) 
+    return render_template('welcome.html', name=name, ) 
 
 if __name__ == '__main__':
 	app.debug = True

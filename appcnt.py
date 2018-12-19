@@ -10,7 +10,7 @@ class Webapp:
     validator = Validator()
     err = validator.check(self._answer)
 
-    if err is None:
+    if not err :
       val_data = self._answer
       return val_data
     else:
