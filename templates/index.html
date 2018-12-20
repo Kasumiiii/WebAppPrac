@@ -9,35 +9,40 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Web App Test.</title>
   </head>
   <body>
+		{% if err_list %}
+			{% for item in err_list %}
+				<p>{{ item }}</p>
+			{% endfor %}
+		{% endif %}
 
-	<form method="POST" action="/welcome">
+		<form method="POST" action="/welcome">
 
-                <div class="form-group">
-			名前(※必須)
-               		<input type="form" name="name_form">
-               	</div>
-		<div class="form-group">
-			住所(※必須)
-               		<input type="form" name="add_form">
-		</div>
-		<div class="form-group">
-			郵便番号
-			<input type="form" name="addnum_form">
-		</div>
-		<div class="form-group">
-			メール
-			<input type="form" name="mail_form">
-		</div>
-		<div class="form-group">
-			電話番号
-                	<input type="form" name="phnum_form">
-		</div>
-                <button name="button">sent </button>
+			<div class="form-group">
+				名前
+				<input type="form" name="name_form">
+			</div>
+			<div class="form-group">
+				住所
+				<input type="form" name="address_form">
+			</div>
+			<div class="form-group">
+				郵便番号
+				<input type="form" name="addnum_form">
+			</div>
+			<div class="form-group">
+				メール
+				<input type="form" name="mail_form">
+			</div>
+			<div class="form-group">
+				電話番号
+				<input type="form" name="tel_form">
+			</div>
+			<button name="button">sent </button>
 
-        </form>
+  	</form>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

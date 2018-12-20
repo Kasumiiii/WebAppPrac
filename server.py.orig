@@ -14,7 +14,7 @@ def welcome():
 	add = request.form['add_form']
 	addnum = request.form['addnum_form']
 	mail = request.form['mail_form']
-	phnum = request.form['phnum_form']
+	tel = request.form['tel_form']
 
 	url = 'mysql+pymysql://root@localhost/test?charset=utf8'
 	engine = sa.create_engine(url, echo=True)
@@ -28,14 +28,14 @@ def welcome():
 		address TEXT,
 		addnum TEXT,
 		mail TEXT,
-		phnum TEXT
+		tel TEXT
     		)
     		''')
 
 	# データを挿入。
 	# SQL文に「?」が使用できないので、代わりに「%s」を使用
-	ins = "INSERT INTO users (name, address, addnum, mail, phnum) VALUES (%s, %s, %s, %s, %s)"
-	data = [( name, add, addnum, mail, phnum )]
+	ins = "INSERT INTO users (name, address, addnum, mail, tel) VALUES (%s, %s, %s, %s, %s)"
+	data = [( name, add, addnum, mail, tel )]
 	for d in data:
 	    engine.execute(ins,d)	
 

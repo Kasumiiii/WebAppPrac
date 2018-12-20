@@ -1,4 +1,5 @@
 from validator import Validator 
+from db_cnt import DBcnt
 
 class Webapp:
   def __init__(self, answer):
@@ -12,6 +13,8 @@ class Webapp:
 
     if not err :
       val_data = self._answer
-      return val_data
+      db_cnt = DBcnt()
+      db_cnt.add_data(val_data)
+      return val_data, True
     else:
-      return err
+      return err, False
