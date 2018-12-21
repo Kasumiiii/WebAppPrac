@@ -1,18 +1,18 @@
 # server.py
 from flask import Flask, render_template, request
-import re
-from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+# import re
+# from sqlalchemy import create_engine, Column, Integer, String
+# from sqlalchemy.ext.declarative import declarative_base
+# from sqlalchemy.orm import sessionmaker
 
 from appcnt import Webapp
 
 
 app = Flask(__name__)
 
-url = 'mysql+pymysql://root@localhost/test?charset=utf8'
-engine = create_engine(url, echo=True)
-Base = declarative_base()
+# url = 'mysql+pymysql://root@localhost/test?charset=utf8'
+# engine = create_engine(url, echo=True)
+# Base = declarative_base()
 
 @app.route('/')
 def index():
@@ -36,21 +36,25 @@ class Judge:
     appcnt = Webapp(input_list)
     valid_data, check = appcnt.val()
 
-#@app.route('/welcome', methods=['POST'])
-#  def welcome(self, data):
-    # print( valid_data )
-                #ins = "INSERT INTO users (name, address, addnum, mail, tel) VALUES (%s, %s, %s, %s, %s)"
-                #data = [( name, add, addnum, mail, tel )]
-                #for d in data:
-                #    engine.execute(ins,d)
     #バリデーション成否によって遷移先決定
     if check == True:
       name = valid_data 
-      return render_template('welcome.html', name=name) 
+      item_list = ['名前', '住所', '郵便番号', 'メールアドレス', '電話番号']
+      all_list = appcnt.show_data()
+      return render_template('welcome.html', name=name, item_list=item_list, all_list=all_list) 
     elif check == False:
       err_list = valid_data 
-      return render_template('index.html', err_list=err_list) 
+      return render_template('index.html', err_list=err_list)
 
 if __name__ == '__main__':
 	app.debug = True
 	app.run(host='0.0.0.0', port=80)
+
+@app.route('/search', methods=['POST'])
+def search_data():
+  key = request.form['search_form']
+  item_list = ['名前', '住所', '郵便番号', 'メールアドレス', '電話番号']
+
+  appcnt = Webapp(key)
+  lists = appcnt.search_data()
+  return render_template('search.html', item_list = item_list, lists = lists)

@@ -18,3 +18,14 @@ class Webapp:
       return val_data, True
     else:
       return err, False
+  
+  def show_data(self):
+    db_cnt = DBcnt()
+    all_data = db_cnt.show_data()
+    return all_data
+  
+  def search_data(self):
+    db_cnt = DBcnt()
+    search_data = db_cnt.search_data(self._answer)
+    return search_data
+

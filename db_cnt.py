@@ -21,14 +21,21 @@ class DBcnt:
             session.commit()
 
         users = session.query(User).all()
+
         for user_object in users:
-            print(f'{user_object.user_id} : {user_object.name}')
+            # print(f'{user_object.user_id} : {user_object.name}')
+            print(f'{user_object.user_id} : {user_object.name}, {user_object.address}, {user_object.addnum}, {user_object.mail}, {user_object.tel}')
+
 
 #検索
-"""
-target = session.query(User).filter(User.name=="tanaka").first()
-target.name = 'yamada'
-session.commit()
-"""
+    def show_data(self):
+        users = session.query(User).all()
+        return users
+
+    def search_data(self, key):
+        users = session.query(User).filter(user.name==key or user.address==key or user.addnum==key or user.mail==key or user.tel==key).all()
+        return users
+
+
 
 session.close()
