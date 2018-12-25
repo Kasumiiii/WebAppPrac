@@ -46,15 +46,25 @@ class Judge:
       err_list = valid_data 
       return render_template('index.html', err_list=err_list)
 
-if __name__ == '__main__':
-	app.debug = True
-	app.run(host='0.0.0.0', port=80)
-
 @app.route('/search', methods=['POST'])
 def search_data():
   key = request.form['search_form']
   item_list = ['名前', '住所', '郵便番号', 'メールアドレス', '電話番号']
-
+  print(key)
   appcnt = Webapp(key)
   lists = appcnt.search_data()
   return render_template('search.html', item_list = item_list, lists = lists)
+
+@app.route('/detail', methods=['POST'])
+def detail_data():
+  key = request.form['user_id_b']
+  item_list = ['名前', '住所', '郵便番号', 'メールアドレス', '電話番号']
+  print(key)
+  appcnt = Webapp(key)
+  lists = appcnt.detail_data()
+  return render_template('detail.html', item_list = item_list, lists = lists)
+
+if __name__ == '__main__':
+	app.debug = True
+	app.run(host='0.0.0.0', port=80)
+

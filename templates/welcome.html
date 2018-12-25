@@ -12,50 +12,72 @@
     <title>Web App Test.</title>
   </head>
   <body>
-
     <form action="/welcome">
-      入力データ
-      <table class="table table-bordered">
-        <tr>
-          {% for list in item_list %}
-          <td>{{ list }}</td>
-          {% endfor %}
-        </tr>
-        <tr>
-          {% for item in name %}
-            <td>{{ item }}</td>
-          {% endfor %}
-        </tr>
-      </table>
-    </br></br>
-      <form method="POST" action="/search">
-        <div class="form-group">
-          検索条件
-          <input type="form" name="search_form">
+    <div class="container">
+        <div class="row">
+            入力データ
+            <table class="table table-bordered">
+              <tr>
+                {% for list in item_list %}
+                <td>{{ list }}</td>
+                {% endfor %}
+              </tr>
+              <tr>
+                {% for item in name %}
+                  <td>{{ item }}</td>
+                {% endfor %}
+              </tr>
+            </table>
         </div>
-        <button name="button">sent </button>
-  
-      </form>
-      <table class="table table-bordered">
-        <tr>
-          {% for list in item_list %}
-          <td>{{ list }}</td>
-          {% endfor %}
-        </tr>
-        
-          {% for item in all_list %}
-            <tr>  
-              <td>{{ item.name }}</td>
-              <td>{{ item.address }}</td>
-              <td>{{ item.addnum }}</td>
-              <td>{{ item.mail }}</td>
-              <td>{{ item.tel }}</td>
-            </tr>
-          {% endfor %}
-        
-      </table>
-    </form>
+          
+        </br></br>
 
+        <div class="row">
+          <form method="POST" action="/search">
+            <div class="form-group">
+              検索条件
+              <input type="form" class="form-control" name="search_form">
+            </div>
+            <button name="button" class="btn btn-default">sent</button>
+          </form>
+        </div>
+        
+        </br></br>
+        <div class="row">
+          データ一覧
+          <table class="table table-bordered">
+            <tr>
+              <td></td>          
+              {% for list in item_list %}
+                <td>{{ list }}</td>
+              {% endfor %}
+              <td>詳細</td>
+            </tr>
+              
+            {% for item in all_list %}
+              <tr>
+                <td>
+                  <label>
+                    <input type="checkbox" name={{ item.user_id }}>
+                  </label>
+                </td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.address }}</td>
+                <td>{{ item.addnum }}</td>
+                <td>{{ item.mail }}</td>
+                <td>{{ item.tel }}</td>
+                <td>
+                  <form method="POST" action="/detail">
+                    <input type="submit" name="user_id_b" value={{item.user_id}} class="btn btn-info btn-lg">
+                    <!-- <a href="#" class="btn btn-info btn-lg">○</a> -->
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}    
+          </table>
+        </div>
+    </div>
+  </form>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

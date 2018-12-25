@@ -29,3 +29,7 @@ class Webapp:
     search_data = db_cnt.search_data(self._answer)
     return search_data
 
+  def detail_data(self):
+    db_cnt = DBcnt()
+    detail_data = db_cnt.detail_data(self._answer)
+    return detail_data

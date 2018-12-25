@@ -1,5 +1,6 @@
 from table import User
 from db_util import get_session
+from sqlalchemy import or_
 
 session = get_session()
 user = User()
@@ -33,9 +34,15 @@ class DBcnt:
         return users
 
     def search_data(self, key):
-        users = session.query(User).filter(user.name==key or user.address==key or user.addnum==key or user.mail==key or user.tel==key).all()
+        print(key)
+        users = session.query(User).filter(or_(User.name==key, User.address==key, User.addnum==key, User.mail==key, User.tel==key)).all()
+        for user_object in users:
+            # print(f'{user_object.user_id} : {user_object.name}')
+            print(f'{user_object.user_id} : {user_object.name}, {user_object.address}, {user_object.addnum}, {user_object.mail}, {user_object.tel}')
         return users
 
-
+    def detail_data(self, key):
+        target = session.query(User).filter(User.user_id==key).all()
+        return target
 
 session.close()

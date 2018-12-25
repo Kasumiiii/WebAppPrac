@@ -12,37 +12,41 @@
     <title>Web App Test.</title>
   </head>
   <body>
-		{% if err_list %}
-			{% for item in err_list %}
-				<p>{{ item }}</p>
-			{% endfor %}
-		{% endif %}
+			<div class="container">
+					<div class="row">
+						{% if err_list %}
+							{% for item in err_list %}
+								<p>{{ item }}</p>
+							{% endfor %}
+						{% endif %}
 
-		<form method="POST" action="/welcome">
+						<form method="POST" action="/welcome">
 
-			<div class="form-group">
-				名前
-				<input type="form" name="name_form">
-			</div>
-			<div class="form-group">
-				住所
-				<input type="form" name="address_form">
-			</div>
-			<div class="form-group">
-				郵便番号
-				<input type="form" name="addnum_form">
-			</div>
-			<div class="form-group">
-				メール
-				<input type="form" name="mail_form">
-			</div>
-			<div class="form-group">
-				電話番号
-				<input type="form" name="tel_form">
-			</div>
-			<button name="button">sent </button>
+							<div class="form-group">
+								名前
+								<input type="form" class="form-control" name="name_form">
+							</div>
+							<div class="form-group">
+								住所
+								<input type="form" class="form-control" name="address_form">
+							</div>
+							<div class="form-group">
+								郵便番号
+								<input type="form" class="form-control" name="addnum_form">
+							</div>
+							<div class="form-group">
+								メール
+								<input type="form" class="form-control" name="mail_form">
+							</div>
+							<div class="form-group">
+								電話番号
+								<input type="form" class="form-control" name="tel_form">
+							</div>
+							<button name="button" class="btn btn-default">sent </button>
 
-  	</form>
+						</form>
+					</div>
+			</div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
