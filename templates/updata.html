@@ -12,10 +12,10 @@
     <title>Web App Test.</title>
   </head>
   <body>
-    <form action="/detail">
+    <form action="/updata">
         <div class="container">
             <div class="row">
-                詳細画面
+                データ変更画面
                 <table class="table table-bordered">
                         <tr>
                         {% for list in item_list %}
@@ -24,25 +24,20 @@
                         <td></td>
                         </tr>
                         <tr>
+                        <form method="POST" action="/welcome">
+                            <input type="hidden" name="page_name" value="updata">
                         {% for item in lists %}
-                            <td>{{ item.name }}</td>
-                            <td>{{ item.address }}</td>
-                            <td>{{ item.addnum }}</td>
-                            <td>{{ item.mail }}</td>
-                            <td>{{ item.tel }}</td>
+                            <td><input type="form" class="form-control" name="name_form" value={{item.name}}></td>
+                            <td><input type="form" class="form-control" name="name_form" value={{item.address}}></td>
+                            <td><input type="form" class="form-control" name="name_form" value={{item.addnum}}></td>
+                            <td><input type="form" class="form-control" name="name_form" value={{item.mail}}></td>
+                            <td><input type="form" class="form-control" name="name_form" value={{item.tel}}></td>
                             <td>
-                                <form method="POST" action="/updata">
-                                    <input type="hidden" name="page_name" value="detail">
-                                    <input type="hidden" name="user_id_b" value={{item.user_id}}>
-                                    <input type="submit" name="ch_mode" value ="変更" class="btn btn-info btn-lg">
-                                </form>
-                                <form method="POST" action="/welcome" style="display: inline">
-                                    <input type="hidden" name="page_name" value="detail">
-                                    <input type="hidden" name="user_id_b" value={{item.user_id}}>
-                                    <input type="submit" name="ch_mode" value ="削除" class="btn btn-info btn-lg">
-                                </form>
+                                <input type="hidden" name="user_id_b" value={{item.user_id}}>
+                                <input type="submit" name="ch_mode" value ="変更" class="btn btn-info btn-lg">
                             </td>
                         {% endfor %}
+                        </form>
                         </tr>
                 </table>
             </div>

@@ -19,6 +19,7 @@ class Webapp:
     else:
       return err, False
   
+
   def show_data(self):
     db_cnt = DBcnt()
     all_data = db_cnt.show_data()
@@ -33,3 +34,18 @@ class Webapp:
     db_cnt = DBcnt()
     detail_data = db_cnt.detail_data(self._answer)
     return detail_data
+  
+  def update_data(self, updata):
+    validator = Validator()
+    err = validator.check(self._answer)
+
+    if not err:
+      db_cnt = DBcnt()
+      update_data = db_cnt.update_data(self._answer, updata)
+      return update_data, True
+    else:
+      return err, False
+
+  def delete_data(self):
+    db_cnt = DBcnt()
+    db_cnt.delete_data(self._answer)

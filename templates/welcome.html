@@ -14,6 +14,8 @@
   <body>
     <form action="/welcome">
     <div class="container">
+      <!-- index画面からデータ入力があった場合のみ、最上部に入ったデータを表示 -->
+      {% if index_check==True %}
         <div class="row">
             入力データ
             <table class="table table-bordered">
@@ -29,7 +31,7 @@
               </tr>
             </table>
         </div>
-          
+      {% endif %}
         </br></br>
 
         <div class="row">
@@ -58,7 +60,7 @@
               <tr>
                 <td>
                   <label>
-                    <input type="checkbox" name={{ item.user_id }}>
+                    <input type="checkbox" name={{item.user_id}}>
                   </label>
                 </td>
                 <td>{{ item.name }}</td>
@@ -68,8 +70,8 @@
                 <td>{{ item.tel }}</td>
                 <td>
                   <form method="POST" action="/detail">
-                    <input type="submit" name="user_id_b" value={{item.user_id}} class="btn btn-info btn-lg">
-                    <!-- <a href="#" class="btn btn-info btn-lg">○</a> -->
+                    <input type="hidden" name="user_id_b" value={{item.user_id}}>
+                    <input type="submit" value ="○" class="btn btn-info btn-lg">
                   </form>
                 </td>
               </tr>

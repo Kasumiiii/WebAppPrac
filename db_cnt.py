@@ -9,6 +9,7 @@ class DBcnt:
     def __init__(self):
         pass
     
+    #データ追加
     def add_data(self, val_data):
 
         if len(val_data) > 1:
@@ -23,26 +24,42 @@ class DBcnt:
 
         users = session.query(User).all()
 
-        for user_object in users:
-            # print(f'{user_object.user_id} : {user_object.name}')
-            print(f'{user_object.user_id} : {user_object.name}, {user_object.address}, {user_object.addnum}, {user_object.mail}, {user_object.tel}')
-
-
-#検索
+        # for user_object in users:
+        #     print(f'{user_object.user_id} : {user_object.name}, {user_object.address}, {user_object.addnum}, {user_object.mail}, {user_object.tel}')
+    
+    #データ一覧表示
     def show_data(self):
         users = session.query(User).all()
         return users
 
+    #データ検索
     def search_data(self, key):
-        print(key)
+        # print(key)
         users = session.query(User).filter(or_(User.name==key, User.address==key, User.addnum==key, User.mail==key, User.tel==key)).all()
-        for user_object in users:
-            # print(f'{user_object.user_id} : {user_object.name}')
-            print(f'{user_object.user_id} : {user_object.name}, {user_object.address}, {user_object.addnum}, {user_object.mail}, {user_object.tel}')
+        # for user_object in users:
+        #     print(f'{user_object.user_id} : {user_object.name}, {user_object.address}, {user_object.addnum}, {user_object.mail}, {user_object.tel}')
         return users
 
+    #データ詳細
     def detail_data(self, key):
         target = session.query(User).filter(User.user_id==key).all()
         return target
+
+    #データアップデート
+    def update_data(self, key, updata):
+        target = session.query(User).filter(User.user_id==key).all()
+        target.name = updata[0]
+        target.address = updata[1]
+        target.addnum = updata[2]
+        target.mail = updata[3]
+        target.tel = updata[4]
+
+        session.commit()
+        return target
+
+    #データ削除
+    def delete_data(self, key):
+        session.query(User).filter(User.user_id==key).delete()
+        session.commit()
 
 session.close()
