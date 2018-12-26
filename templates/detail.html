@@ -12,28 +12,33 @@
     <title>Web App Test.</title>
   </head>
   <body>
-    <form action="/welcome">
+    <form action="/detail">
         <div class="container">
-            <form action="/detail">
-            詳細画面
-            <table class="table table-bordered">
-                    <tr>
-                    {% for list in item_list %}
-                    <td>{{ list }}</td>
-                    {% endfor %}
-                    </tr>
-                    <tr>
-                    {% for item in lists %}
-                        <!-- <td>{{ item }}</td> -->
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.address }}</td>
-                        <td>{{ item.addnum }}</td>
-                        <td>{{ item.mail }}</td>
-                        <td>{{ item.tel }}</td>
-                    {% endfor %}
-                    </tr>
+            <div class="row">
+                詳細画面
+                <table class="table table-bordered">
+                        <tr>
+                        {% for list in item_list %}
+                        <td>{{ list }}</td>
+                        {% endfor %}
+                        </tr>
+                        <tr>
+                        {% for item in lists %}
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.address }}</td>
+                            <td>{{ item.addnum }}</td>
+                            <td>{{ item.mail }}</td>
+                            <td>{{ item.tel }}</td>
+                            <td>
+                                <form method="POST" action="/welcome">
+                                    <input type="hidden" name="user_id_b" value={{item.user_id}}>
+                                    <input type="submit" value ="削除" class="btn btn-info btn-lg">
+                                </form>
+                            </td>
+                        {% endfor %}
+                        </tr>
                 </table>
-            </form>
+            </div>
         </div>
     </form>
     <!-- Optional JavaScript -->
