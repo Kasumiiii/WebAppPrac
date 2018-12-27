@@ -46,13 +46,13 @@ class DBcnt:
         return target
 
     #データアップデート
-    def update_data(self, key, updata):
-        target = session.query(User).filter(User.user_id==key).all()
-        target.name = updata[0]
-        target.address = updata[1]
-        target.addnum = updata[2]
-        target.mail = updata[3]
-        target.tel = updata[4]
+    def update_data(self, updata):
+        target = session.query(User).filter(User.user_id==updata[0]).all()
+        target.name = updata[1]
+        target.address = updata[2]
+        target.addnum = updata[3]
+        target.mail = updata[4]
+        target.tel = updata[5]
 
         session.commit()
         return target

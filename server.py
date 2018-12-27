@@ -1,9 +1,5 @@
 # server.py
 from flask import Flask, render_template, request
-# import re
-# from sqlalchemy import create_engine, Column, Integer, String
-# from sqlalchemy.ext.declarative import declarative_base
-# from sqlalchemy.orm import sessionmaker
 
 from appcnt import Webapp
 
@@ -39,7 +35,7 @@ class Judge:
       if check == True:
         name = valid_data 
         all_list = appcnt.show_data()
-        index_check=True
+        index_check = True
         return render_template('welcome.html', name=name, item_list=item_list, all_list=all_list, index_check=index_check) 
       elif check == False:
         err_list = valid_data 
@@ -52,12 +48,13 @@ class Judge:
         appcnt = Webapp(sel_id)
         appcnt.delete_data()
         all_list = appcnt.show_data()
-        index_check=False
+        index_check = False
         return render_template('welcome.html', item_list=item_list, all_list=all_list, index_check=index_check) 
     
     #データ変更後の処理
     elif request.form['page_name']=='updata':
       input_list = [
+        request.form['user_id_b'],
         request.form['name_form'],
         request.form['address_form'],
         request.form['addnum_form'],
@@ -66,14 +63,13 @@ class Judge:
       ]
       
       appcnt = Webapp(input_list)
-      updata, check = appcnt.val()
+      updata, check = appcnt.update_data()
 
       #バリデーション成否によって遷移先決定
-      if check == True:
-        name = updata 
+      if check == True: 
         all_list = appcnt.show_data()
         index_check=True
-        return render_template('welcome.html', name=name, item_list=item_list, all_list=all_list, index_check=index_check)
+        return render_template('welcome.html', name=updata, item_list=item_list, all_list=all_list, index_check=index_check)
       elif check == False:
         err_list = updata 
         return render_template('index.html', err_list=err_list)  
@@ -86,8 +82,6 @@ class Judge:
       return render_template('welcome.html', item_list=item_list, all_list=all_list, index_check=index_check)
 
 
-
-    
 
 @app.route('/search', methods=['POST'])
 def search_data():
@@ -103,7 +97,7 @@ def detail_data():
   # print(key)
   appcnt = Webapp(key)
   lists = appcnt.detail_data()
-  print(lists, "def detail_data")
+  # print(lists, "def detail_data")
   return render_template('detail.html', item_list = item_list, lists = lists)
 
 @app.route('/updata', methods=['GET', 'POST'])

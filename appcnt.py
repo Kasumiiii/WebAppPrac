@@ -35,13 +35,13 @@ class Webapp:
     detail_data = db_cnt.detail_data(self._answer)
     return detail_data
   
-  def update_data(self, updata):
+  def update_data(self):
     validator = Validator()
     err = validator.check(self._answer)
 
     if not err:
       db_cnt = DBcnt()
-      update_data = db_cnt.update_data(self._answer, updata)
+      update_data = db_cnt.update_data(self._answer)
       return update_data, True
     else:
       return err, False
