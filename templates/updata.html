@@ -36,10 +36,10 @@
                             <input type="hidden" name="page_name" value="updata">
                         {% for item in lists %}
                             <td><input type="form" class="form-control" name="name_form" value={{item.name}}></td>
-                            <td><input type="form" class="form-control" name="name_form" value={{item.address}}></td>
-                            <td><input type="form" class="form-control" name="name_form" value={{item.addnum}}></td>
-                            <td><input type="form" class="form-control" name="name_form" value={{item.mail}}></td>
-                            <td><input type="form" class="form-control" name="name_form" value={{item.tel}}></td>
+                            <td><input type="form" class="form-control" name="address_form" value={{item.address}}></td>
+                            <td><input type="form" class="form-control" name="addnum_form" value={{item.addnum}}></td>
+                            <td><input type="form" class="form-control" name="mail_form" value={{item.mail}}></td>
+                            <td><input type="form" class="form-control" name="tel_form" value={{item.tel}}></td>
                             <td>
                                 <input type="hidden" name="user_id_b" value={{item.user_id}}>
                                 <input type="submit" name="ch_mode" value ="変更" class="btn btn-info btn-lg">
